@@ -6,23 +6,13 @@ WORKDIR /usr/src/app
 
 ## install node
 
-ARG REFRESHED_AT
-ENV REFRESHED_AT $REFRESHED_AT
-
-#SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \ 
+    build-essential
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
-  nodejs \
-  build-essential
-RUN rm -rf /var/lib/apt/lists/*
-
-## install node
-
-##
-
-
-##
+RUN apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -33,9 +23,11 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
-
 # Bundle app source
 COPY . .
 
 EXPOSE 4050
-CMD [ "node", "dist ]
+
+#SHELL ["/bin/bash"]
+
+CMD [ "node", "dist" ]

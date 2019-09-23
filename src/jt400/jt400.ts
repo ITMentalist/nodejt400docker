@@ -18,7 +18,7 @@ public constructor (){
 
 }
 
-public static ejecutarQuery( query:string): Prueba {
+public static ejecutarQuery( query:string, callback: Function): Function {
   
   let results: Prueba = {
     ok : false,
@@ -35,7 +35,7 @@ public static ejecutarQuery( query:string): Prueba {
         ok: true,
         result: result,
         msg: 'Sentencia ejecutada correctamente'
-      };
+      };      
 
   })
   .fail( (error:any) => {
@@ -45,10 +45,10 @@ public static ejecutarQuery( query:string): Prueba {
       results.ok =false;
       results.msg = error.message;
   }
-
+ 
 });
 
-return results;
+return callback(results)
     
 }
 

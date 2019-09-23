@@ -12,7 +12,7 @@ class Jt400 {
         };
         this.conectarBD();
     }
-    static ejecutarQuery(query) {
+    static ejecutarQuery(query, callback) {
         let results = {
             ok: false,
             msg: 'init result'
@@ -36,7 +36,7 @@ class Jt400 {
                 results.msg = error.message;
             }
         });
-        return results;
+        return callback(results);
     }
     static get instance() {
         return this._instance || (this._instance = new this());

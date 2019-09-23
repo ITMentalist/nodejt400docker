@@ -8,9 +8,10 @@ const router = Router();
 router.get( '/prueba', 
             (req: Request, res: Response) => 
             {                
-                let results: Prueba = {};
+                //let results: Prueba = {};
                 const query = `SELECT * FROM arai.prueba`;
-                results = Jt400.ejecutarQuery(query);
+                Jt400.ejecutarQuery(query, (results: Prueba) => {
+                    
                 console.log('results.ok :', results.ok);
                 if(!results.ok ){
                     res.status(400).json({
@@ -24,6 +25,8 @@ router.get( '/prueba',
                         prueba: results
                     });
                 }   
+                } );
+                
             }                  
                 
 );
